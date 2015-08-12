@@ -22,13 +22,14 @@ angular.module('starter.controllers', [])
 
 .controller('SurveyCtrl', function($scope, $stateParams, Surveys, Camera){
 
-  //$scope.survey = Surveys.get($stateParams(surveyId));
+  $scope.projectId =$stateParams.projectId; 
+  $scope.survey = Surveys.get($stateParams.surveyId);
 
   $scope.getPhoto = function() {
     Camera.getPicture().then(function(imageURI) {
-      console.log(imageURI);
+      var picture = Surveys.addPicture( $scope.survey, imageURI );
     }, function(err) {
-      console.err(err);
+      var picture = Surveys.addPicture( $scope.survey, "imageURI" );
     });
   };
 

@@ -57,6 +57,8 @@ angular.module('starter.services', [])
 .factory('Surveys', function(Projects) {
   // Might use a resource here that returns a JSON array
 
+  var pic_id = 1;
+
   var surveys = [{
     id: 1,
     creation_date: new Date(2009,10,10),
@@ -67,7 +69,10 @@ angular.module('starter.services', [])
     id: 2,
     creation_date: new Date(20010,10,10),
     pictures : [ 
-            {}
+            { id: -1,
+              description: "TEST",
+              tags:[]
+            }
             ],
     tags: []
 
@@ -99,6 +104,16 @@ angular.module('starter.services', [])
       surveys.push( new_survey );
       Projects.get(projectId).surveys.push(new_id);
       return new_survey;
+    },
+    addPicture: function( survey, picURI){
+      var picture = { 
+        id: pic_id,
+        uri: picURI,
+        tags: ["default","tag"],
+        description: ""
+      }
+      pic_id = pic_id + 1;
+      survey.pictures.push( picture );
     }
   };
 });

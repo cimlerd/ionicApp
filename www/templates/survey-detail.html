@@ -7,12 +7,9 @@
 <ion-view view-title="WOOT">
   <ion-content class="">
     <ion-list>
-      <ion-item ng-repeat="picture in survey.pictures" class="item-remove-animate item-avatar item-icon-right size-96" type="item-text-wrap" href="#/tab/survey/{{project.id}}/{{survey.id}}">
-      <p>PIC</p>
-        <!--<h2>{{survey.creation_date |  date:'MM/dd/yyyy'}}</h2>
-        <p>Pictures:  {{survey.pictures.length}}</p>
-        <p>Tags:  {{survey.tags.length}}</p>
-        <i class="icon ion-chevron-right icon-accessory"></i>-->
+      <ion-item ng-repeat="picture in survey.pictures" class="item-remove-animate item-avatar item-icon-right size-96" type="item-text-wrap" href="#/tab/survey/{{projectId}}/{{survey.id}}/{{picture.id}}">
+      <img ng-src="{{picture.uri}}" style="max-width: 100%">
+      <p>Thing</p>
       </ion-item>
     </ion-list>
   </ion-content>
