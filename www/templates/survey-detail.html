@@ -10,16 +10,17 @@
       <ion-item ng-repeat="picture in survey.pictures" class="item-remove-animate item-avatar item-icon-right size-96" type="item-text-wrap" href="#/tab/survey/{{projectId}}/{{survey.id}}/{{picture.id}}">
       <img ng-src="{{picture.uri}}" style="max-width: 100%">
       <p>Thing</p>
+      {{picture.uri}}
       </ion-item>
     </ion-list>
   </ion-content>
 
   <ion-footer-bar>
-    <button ng-click="getPhoto()"
+    <button ng-click="getPicture()"
       class="button text-center col-50  button-balanced button-large icon-center ion-plus-round">
         Take Picture
     </button>
-    <button ng-click=""
+    <button ng-click="getExistingPicture()"
       class="button text-center col-50  button-balanced button-large icon-center ion-plus-round">
         Add Picture From Device
     </button>

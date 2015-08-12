@@ -6,6 +6,25 @@ angular.module('starter.services', [])
   return {
     getPicture: function(options) {
       var q = $q.defer();
+      options = typeof options !== 'undefined' ? options : {
+        quality : 75,
+        saveToPhotoAlbum: true
+      };
+
+      navigator.camera.getPicture(function(result) {
+        // Do any magic you need
+        q.resolve(result);
+      }, function(err) {
+        q.reject(err);
+      }, options);
+
+      return q.promise;
+    },
+    getExistingPicture: function(options){
+      var q = $q.defer();
+      options = typeof options !== 'undefined' ? options : {
+        sourceType : Camera.PictureSourceType.SAVEDPHOTOALBUM
+      };
 
       navigator.camera.getPicture(function(result) {
         // Do any magic you need
@@ -18,7 +37,6 @@ angular.module('starter.services', [])
     }
   }
 }])
-
 .factory('Projects', function() {
   // Might use a resource here that returns a JSON array
 

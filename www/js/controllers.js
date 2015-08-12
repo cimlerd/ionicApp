@@ -25,8 +25,15 @@ angular.module('starter.controllers', [])
   $scope.projectId =$stateParams.projectId; 
   $scope.survey = Surveys.get($stateParams.surveyId);
 
-  $scope.getPhoto = function() {
+  $scope.getPicture = function() {
     Camera.getPicture().then(function(imageURI) {
+      var picture = Surveys.addPicture( $scope.survey, imageURI );
+    }, function(err) {
+      var picture = Surveys.addPicture( $scope.survey, "imageURI" );
+    });
+  };
+  $scope.getExistingPicture = function() {
+    Camera.getExistingPicture().then(function(imageURI) {
       var picture = Surveys.addPicture( $scope.survey, imageURI );
     }, function(err) {
       var picture = Surveys.addPicture( $scope.survey, "imageURI" );
