@@ -29,16 +29,16 @@
 
 
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" href="#/tab/dash/1">
-        <h2>Demo Project 1</h2>
-        <p>0thx1138</p>
+      <ion-item ng-repeat="project in projects" class="item-remove-animate item-avatar item-icon-right size-96" type="item-text-wrap" href="#/tab/survey/{{project.id}}">
+        <h2>{{project.name}}</h2>
+        <p>{{project.contract_number}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" href="#/tab/dash/1">
+      <!--<ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" href="#/tab/survey/1">
         <h2>Demo Project 2</h2>
         <p>0thx1139</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
-      </ion-item>
+      </ion-item>-->
     </ion-list>
 
   </ion-content>

@@ -1,6 +1,38 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('ProjectListCtrl', function($scope, Projects) {
+  $scope.projects = Projects.all();
+})
+
+.controller('ProjectDetailCtrl', function($scope, $stateParams, Projects,Surveys) {
+
+  //$scope.$on('$ionicView.enter', function(e) {
+  $scope.project = Projects.get($stateParams.projectId);
+  $scope.surveys = [];
+  angular.forEach( $scope.project.surveys, function(survey_id){
+    $scope.surveys.push(Surveys.get(survey_id));
+  });
+  //});
+
+  $scope.add = function(){
+    $scope.surveys.push(Surveys.create( $stateParams.projectId));
+  }
+
+})
+
+.controller('SurveyCtrl', function($scope, $stateParams, Surveys, Camera){
+
+  //$scope.survey = Surveys.get($stateParams(surveyId));
+
+  $scope.getPhoto = function() {
+    Camera.getPicture().then(function(imageURI) {
+      console.log(imageURI);
+    }, function(err) {
+      console.err(err);
+    });
+  };
+
+})
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
@@ -21,8 +53,8 @@ angular.module('starter.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope) {
+.controller('SettingsCtrl', function($scope) {
   $scope.settings = {
-    enableFriends: true
+    enableSync: true
   };
 });

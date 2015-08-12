@@ -1,50 +1,104 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function() {
+
+.factory('Camera', ['$q', function($q) {
+
+  return {
+    getPicture: function(options) {
+      var q = $q.defer();
+
+      navigator.camera.getPicture(function(result) {
+        // Do any magic you need
+        q.resolve(result);
+      }, function(err) {
+        q.reject(err);
+      }, options);
+
+      return q.promise;
+    }
+  }
+}])
+
+.factory('Projects', function() {
   // Might use a resource here that returns a JSON array
 
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png'
-  }, {
+  var projects = [{
     id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'https://avatars3.githubusercontent.com/u/11214?v=3&s=460'
+    name: "Sliverlake Japanese Cultural Center",
+    contract_number: "0thx1138",
+    surveys: [1,2]
   }, {
     id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'https://pbs.twimg.com/profile_images/598205061232103424/3j5HUXMY.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png'
+    name: "Utah Place Bike Workshop",
+    contract_number: "0pyx1137",
+    surveys: []
+
   }];
 
   return {
     all: function() {
-      return chats;
+      return projects;
     },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
+    remove: function(project) {
+      projects.splice(chats.indexOf(chat), 1);
     },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
+    get: function(projectId) {
+      for (var i = 0; i < projects.length; i++) {
+        if (projects[i].id === parseInt(projectId)) {
+          return projects[i];
         }
       }
       return null;
+    }
+  };
+})
+
+
+.factory('Surveys', function(Projects) {
+  // Might use a resource here that returns a JSON array
+
+  var surveys = [{
+    id: 1,
+    creation_date: new Date(2009,10,10),
+    pictures : [ 
+            ],
+    tags: []
+  }, {
+    id: 2,
+    creation_date: new Date(20010,10,10),
+    pictures : [ 
+            {}
+            ],
+    tags: []
+
+  }];
+
+  return {
+    all: function() {
+      return projects;
+    },
+    remove: function(survey) {
+      projects.splice(chats.indexOf(survey), 1);
+    },
+    get: function(surveyId) {
+      for (var i = 0; i < surveys.length; i++) {
+        if (surveys[i].id === parseInt(surveyId)) {
+          return surveys[i];
+        }
+      }
+      return null;
+    },
+    create: function(projectId) {
+      var new_id = surveys.slice(-1)[0].id + 1;
+      var new_survey =  {
+          id: new_id,
+          creation_date: new Date(),
+          pictures: [],
+          tags: []
+      }
+      surveys.push( new_survey );
+      Projects.get(projectId).surveys.push(new_id);
+      return new_survey;
     }
   };
 });

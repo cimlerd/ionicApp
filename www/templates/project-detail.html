@@ -4,11 +4,48 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="Surveys for Demo Project 1">
-  <ion-content class="padding">
-    <img ng-src="{{chat.face}}" style="width: 64px; height: 64px">
-    <p>
-      {{chat.lastText}}
-    </p>
+<ion-view view-title="{{project.name}}">
+  <ion-content class="">
+    <ion-list>
+      <ion-item ng-repeat="survey in surveys" class="item-remove-animate item-avatar item-icon-right size-96" type="item-text-wrap" href="#/tab/survey/{{project.id}}/{{survey.id}}">
+        <h2>{{survey.creation_date |  date:'MM/dd/yyyy'}}</h2>
+        <p>Pictures:  {{survey.pictures.length}}</p>
+        <p>Tags:  {{survey.tags.length}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
   </ion-content>
+
+  <ion-footer-bar>
+    <button ng-click="add()"
+      class="button text-center col-80 col-offset-10 button-balanced button-large icon-center ion-plus-round">
+        New Survey
+    </button>
+    <!--<div class="bar bar-footer bar-balanced">
+      <div class="title">Footer</div>
+    </div>-->
+  </ion-footer-bar>
+
+    <!--<ion-footer-bar >
+    <div class="bar bar-footer col-80 col-offset-10">
+      <button class="button col-10 button-large button-balanced ">
+        New Survey
+      </button>
+      <button class="button button-clear">Left</button>
+      <div class="title">Title</div>
+      <button class="button button-clear">Right</button>
+    </div>
+    <button class="button button-full button-balanced">
+      New Survey
+    </button>
+    <div class="buttons">
+      <button class="button">Left Button</button>
+    </div>
+    <h1 class="title">Title!</h1>
+    <div class="buttons" ng-click="doSomething()">
+      <button class="button">Right Button</button>
+    </div>
+  </ion-footer-bar>-->
+
+
 </ion-view>

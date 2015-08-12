@@ -1,0 +1,36 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view view-title="WOOT">
+  <ion-content class="">
+    <ion-list>
+      <ion-item ng-repeat="picture in survey.pictures" class="item-remove-animate item-avatar item-icon-right size-96" type="item-text-wrap" href="#/tab/survey/{{project.id}}/{{survey.id}}">
+      <p>PIC</p>
+        <!--<h2>{{survey.creation_date |  date:'MM/dd/yyyy'}}</h2>
+        <p>Pictures:  {{survey.pictures.length}}</p>
+        <p>Tags:  {{survey.tags.length}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>-->
+      </ion-item>
+    </ion-list>
+  </ion-content>
+
+  <ion-footer-bar>
+    <button ng-click="getPhoto()"
+      class="button text-center col-50  button-balanced button-large icon-center ion-plus-round">
+        Take Picture
+    </button>
+    <button ng-click=""
+      class="button text-center col-50  button-balanced button-large icon-center ion-plus-round">
+        Add Picture From Device
+    </button>
+    <br/>
+    <!--<div class="bar bar-footer bar-balanced">
+      <div class="title">Footer</div>
+    </div>-->
+  </ion-footer-bar>
+
+
+</ion-view>
