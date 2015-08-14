@@ -7,7 +7,7 @@
 <ion-view view-title="WOOT">
   <ion-content class="">
     <ion-list>
-      <ion-item ng-repeat="picture in survey.pictures" class="item-remove-animate item-thumbnail-left size-96" type="item-text-wrap" href="#/tab/survey/{{projectId}}/{{survey.id}}/{{picture.id}}">
+      <ion-item ng-repeat="picture in survey.pictures" class="item-remove-animate item-thumbnail-left size-96" type="item-text-wrap" href="#/tab/survey/{{projectId}}/{{survey.id}}/{{$index}}">
       <img ng-src="{{picture.uri}}" >
       <p>Thing</p>
       {{picture.uri}}

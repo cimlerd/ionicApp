@@ -87,12 +87,13 @@ angular.module('starter.services', [])
     id: 2,
     creation_date: new Date(20010,10,10),
     pictures : [ 
-            { id: -1,
-              description: "TEST",
-              tags:[]
+            { //id: -1,
+              description: "Toby Imler - Modern Baby on the go",
+              uri: "/img/toby.jpg",
+              tags:["area:living room","equipment:boiler"]
             }
             ],
-    tags: []
+    tags: ["area:living room","cute","equipment:boiler"]
 
   }];
 
@@ -125,13 +126,25 @@ angular.module('starter.services', [])
     },
     addPicture: function( survey, picURI){
       var picture = { 
-        id: pic_id,
+        //id: pic_id,
         uri: picURI,
         tags: ["default","tag"],
         description: ""
       }
-      pic_id = pic_id + 1;
+      //pic_id = pic_id + 1;
       survey.pictures.push( picture );
+    },
+    tagPicture: function( survey, pictureIndex, tag){
+      survey.tags.push(tag);
+      survey.pictures[pictureIndex].tags.push(tag);
+
+    },
+    unTagPicture: function( survey, pictureIndex, tag){
+      for (var i=survey.pictures[pictureIndex].tags.length-1; i>=0; i--) {
+          if (survey.pictures[pictureIndex].tags[i] === tag) {
+              survey.pictures[pictureIndex].tags.splice(i, 1);
+          }
+      }
     }
   };
 });

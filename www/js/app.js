@@ -67,6 +67,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
   })
+  .state('tab.picture-detail',{
+    url: '/survey/:projectId/:surveyId/:pictureId',
+      views: {
+        'tab-survey': {
+          templateUrl: 'templates/picture-detail.html',
+          controller: 'PictureCtrl'
+        }
+      }
+  })
 
   /*.state('tab.chats', {
       url: '/chats',
