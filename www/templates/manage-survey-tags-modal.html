@@ -6,20 +6,20 @@
     </ion-header-bar>
 
 
-    <ion-content ng-show="modal_state ==0">
+    <ion-content ng-show="modal_state ==0" class="has-header has-footer">
       <ion-list>
-        <ion-item ng-repeat="tag in picture.tags">
+        <ion-item ng-repeat="tag in survey.active_tags">
           {{tag}}
           <ion-option-button class="button-assertive ion-close"
-                   ng-click="removeTag(tag)">
+                   ng-click="unsetTag(tag)">
           </ion-option-button>
         </ion-item>
       </ion-list>
     </ion-content>
 
     <ion-content ng-show="modal_state==1">
-      <p ng-show="!(survey.tags| filter:filterTags).length">Error - no other tags to create.  Make some more or something maybe?</p>
-      <ion-item ng-repeat="tag in survey.tags | filter:filterTags" ng-click="addTag(tag); showPictureTagsModal();">
+      <p ng-show="!(survey.tags| filter:filterTags).length">All tags assigned message.</p>
+      <ion-item ng-repeat="tag in survey.tags | filter:filterTags" ng-click="setTag(tag); closeTagModal();">
           {{tag}}
         </ion-item>
     </ion-content>
@@ -55,7 +55,7 @@
 
     <ion-footer-bar class="tall-footer" ng-show="modal_state ==0">
       <div class="buttons col-50">
-        <button class="button-block button button-balanced " ng-click="showSurveyTagsModal()">Add
+        <button class="button-block button button-balanced " ng-click="showAddTag()">Add
         </button>
       </div>
       <div class="buttons col-50">
@@ -70,14 +70,14 @@
         </button>
       </div>
       <div class="buttons col-50">
-        <button class="button-block button button-positive " ng-click="showPictureTagsModal()">Back
+        <button class="button-block button button-positive " ng-click="manageTags()">Back
         </button>
       </div>
     </ion-footer-bar>
 
     <ion-footer-bar class="tall-footer" ng-show="modal_state==2">
       <div class="buttons col-50">
-        <button ng-disabled="{{new_tag.text}}" class="button-block button button-balanced " ng-click="createTag(new_tag.prefix, new_tag.text); closeTagModal();">Create 
+        <button ng-disabled="{{new_tag.text}}" class="button-block button button-balanced " ng-click="createTag(new_tag.prefix, new_tag.text); closeTagModal();">Create
         </button>
       </div>
       <div class="buttons col-50">

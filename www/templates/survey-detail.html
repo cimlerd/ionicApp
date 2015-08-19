@@ -4,8 +4,17 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="WOOT">
-  <ion-content class="">
+<ion-view view-title="Survey View">
+  <ion-header-bar class="bar-subheader" align-title="right">
+  <button class="button" style="float:right;" ng-click="manageTags()">Manage Tags</button>
+    <span>
+      <span style="font-weight: bold; white-space: normal;">Active Tags:  </span>
+      <span ng-repeat="tag in survey.active_tags">{{tag}}{{$last ? '' : ' / '}}</span>
+    </span>
+    
+    <!--<button class="button"></button>-->
+  </ion-header-bar>
+  <ion-content class="has-subheader">
     <ion-list>
       <ion-item ng-repeat="picture in survey.pictures" class="item-remove-animate item-thumbnail-left size-96" type="item-text-wrap" href="#/tab/survey/{{projectId}}/{{survey.id}}/{{$index}}">
       <img ng-src="{{picture.uri}}" >
@@ -15,14 +24,14 @@
     </ion-list>
   </ion-content>
 
-  <ion-footer-bar>
+  <ion-footer-bar  class="tall-footer">
     <button ng-click="getPicture()"
-      class="button text-center col-50  button-balanced button-large icon-center ion-plus-round">
-        Take Picture
+      class="button text-center col-50  button-balanced button-large ">
+          <i class="icon ion-camera"></i>  Take Picture
     </button>
     <button ng-click="getExistingPicture()"
-      class="button text-center col-50  button-balanced button-large icon-center ion-plus-round">
-        Add Picture From Device
+      class="button text-center col-50  button-balanced button-large ">
+        <i class="icon ion-document"></i>   Add Picture
     </button>
     <br/>
     <!--<div class="bar bar-footer bar-balanced">

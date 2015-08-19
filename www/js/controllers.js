@@ -20,7 +20,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('SurveyCtrl', function($scope, $stateParams, Surveys, Camera){
+.controller('SurveyCtrl', function($scope, $stateParams, $ionicModal, Surveys, Camera){
 
   $scope.projectId =$stateParams.projectId; 
   $scope.survey = Surveys.get($stateParams.surveyId);
@@ -40,6 +40,50 @@ angular.module('starter.controllers', [])
     }, function(err) {
       var picture = Surveys.addPicture( $scope.survey, "imageURI" );
     });
+  };
+
+  $ionicModal.fromTemplateUrl('templates/manage-survey-tags-modal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal
+  });
+
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  }); 
+
+  $scope.modal_state = 0;
+
+  $scope.manageTags = function(){
+    $scope.modal_state = 0;
+    $scope.modal.show()
+  }
+
+  $scope.showAddTag = function() {
+    $scope.modal_state = 1;
+  }
+
+  $scope.closeTagModal = function (){
+    $scope.modal.hide();
+  }
+
+  $scope.setTag = function(tag){
+    Surveys.setTag( $scope.survey,  tag);
+  }
+
+  $scope.unsetTag = function(tag){
+    Surveys.unsetTag( $scope.survey, tag);
+  }
+
+  $scope.createTag = function(tag) {
+    Surveys.createTag( $scope.survey );
+  }
+
+  $scope.filterTags = function (survey_tag) {
+    //So, is item 
+    if ( $scope.survey.active_tags.indexOf(survey_tag)==-1 ){
+      return survey_tag;
+    }
   };
 
 })

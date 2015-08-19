@@ -93,7 +93,8 @@ angular.module('starter.services', [])
               tags:["area:living room","equipment:boiler"]
             }
             ],
-    tags: ["area:living room","cute","equipment:boiler"]
+    tags: ["area:living room","cute","equipment:boiler"],
+    active_tags: ["cute","cute1","cute2","cute3","cute4","cute5","cute6","cute7","cute8","cute9","cute10","cute11","cute12","cute13","cute14"]
 
   }];
 
@@ -144,6 +145,18 @@ angular.module('starter.services', [])
           if (survey.pictures[pictureIndex].tags[i] === tag) {
               survey.pictures[pictureIndex].tags.splice(i, 1);
           }
+      }
+    },
+    unsetTag: function( survey, tag) {
+      for (var i=survey.active_tags.length-1; i>=0; i--) {
+          if (survey.active_tags[i] === tag) {
+              survey.active_tags.splice(i, 1);
+          }
+      }
+    },
+    setTag: function( survey, tag) {
+      if( survey.active_tags.indexOf(tag) === -1 ){
+        survey.active_tags.push(tag);
       }
     }
   };
