@@ -5,21 +5,27 @@
   The Friends service returns an array of friend data
 -->
 <ion-view view-title="Survey View">
-  <ion-header-bar class="bar-subheader" align-title="right">
+  <!--<ion-header-bar class="bar-subheader" align-title="right">
   <button class="button" style="float:right;" ng-click="manageTags()">Manage Tags</button>
     <span>
       <span style="font-weight: bold; white-space: normal;">Active Tags:  </span>
       <span ng-repeat="tag in survey.active_tags">{{tag}}{{$last ? '' : ' / '}}</span>
     </span>
-    
-    <!--<button class="button"></button>-->
-  </ion-header-bar>
-  <ion-content class="has-subheader">
+  </ion-header-bar>-->
+  <ion-content class="">
+    <div class="list card">
+      <div class="item">
+        <button class="button" style="float:right;" ng-click="manageTags()">Manage Tags</button>
+         <h3>Active Tags:</h3>
+
+         <p style="white-space: normal"><span ng-repeat="tag in survey.active_tags">{{tag}}{{$last ? '' : ' / '}}</span></p>
+      </div>
+    </div>
     <ion-list>
       <ion-item ng-repeat="picture in survey.pictures" class="item-remove-animate item-thumbnail-left size-96" type="item-text-wrap" href="#/tab/survey/{{projectId}}/{{survey.id}}/{{$index}}">
       <img ng-src="{{picture.uri}}" >
-      <p>Thing</p>
-      {{picture.uri}}
+      <p>{{picture.description}}</p>
+      <p>Tags: <span ng-repeat="tag in picture.tags">{{tag}}{{$last ? '' : ', '}}</span></p>
       </ion-item>
     </ion-list>
   </ion-content>

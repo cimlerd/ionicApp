@@ -18,7 +18,11 @@
     </ion-content>
 
     <ion-content ng-show="modal_state==1">
-      <p ng-show="!(survey.tags| filter:filterTags).length">All tags assigned message.</p>
+      <div class="list" ng-show="!(survey.tags| filter:filterTags).length">
+        <div class="item" >
+          <h3>No additional tags available, select “New” to create a new tag</h3>
+        </div>
+      </div>
       <ion-item ng-repeat="tag in survey.tags | filter:filterTags" ng-click="setTag(tag); closeTagModal();">
           {{tag}}
         </ion-item>
@@ -66,7 +70,7 @@
 
     <ion-footer-bar class="tall-footer" ng-show="modal_state ==1">
       <div class="buttons col-50">
-        <button class="button-block button button-balanced " ng-click="showNewTagModal()">New
+        <button class="button-block button button-balanced " ng-click="showNewTag()">New
         </button>
       </div>
       <div class="buttons col-50">
@@ -81,7 +85,7 @@
         </button>
       </div>
       <div class="buttons col-50">
-        <button class="button-block button button-positive " ng-click="showSurveyTagsModal()">Back
+        <button class="button-block button button-positive " ng-click="showAddTag()">Back
         </button>
       </div>
     </ion-footer-bar>

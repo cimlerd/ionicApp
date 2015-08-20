@@ -18,7 +18,11 @@
     </ion-content>
 
     <ion-content ng-show="modal_state==1">
-      <p ng-show="!(survey.tags| filter:filterTags).length">Error - no other tags to create.  Make some more or something maybe?</p>
+      <div class="list" ng-show="!(survey.tags| filter:filterTags).length">
+        <div class="item" >
+          <h3>No additional tags available, select “New” to create a new tag</h3>
+        </div>
+      </div>
       <ion-item ng-repeat="tag in survey.tags | filter:filterTags" ng-click="addTag(tag); showPictureTagsModal();">
           {{tag}}
         </ion-item>

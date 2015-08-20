@@ -24,6 +24,11 @@ angular.module('starter.controllers', [])
 
   $scope.projectId =$stateParams.projectId; 
   $scope.survey = Surveys.get($stateParams.surveyId);
+  $scope.tag_types = ["facility","equipment","area"];
+  $scope.new_tag = { 
+    prefix:"",
+    text: ""
+  };
 
 
 
@@ -31,14 +36,14 @@ angular.module('starter.controllers', [])
     Camera.getPicture().then(function(imageURI) {
       var picture = Surveys.addPicture( $scope.survey, imageURI );
     }, function(err) {
-      var picture = Surveys.addPicture( $scope.survey, "imageURI" );
+      //var picture = Surveys.addPicture( $scope.survey, "imageURI" );
     });
   };
   $scope.getExistingPicture = function() {
     Camera.getExistingPicture().then(function(imageURI) {
       var picture = Surveys.addPicture( $scope.survey, imageURI );
     }, function(err) {
-      var picture = Surveys.addPicture( $scope.survey, "imageURI" );
+      //var picture = Surveys.addPicture( $scope.survey, "imageURI" );
     });
   };
 
@@ -63,6 +68,12 @@ angular.module('starter.controllers', [])
     $scope.modal_state = 1;
   }
 
+  $scope.showNewTag = function(){
+    $scope.new_tag.text = "";
+    $scope.new_tag.prefix = "";
+    $scope.modal_state =2;
+  }
+
   $scope.closeTagModal = function (){
     $scope.modal.hide();
   }
@@ -75,8 +86,13 @@ angular.module('starter.controllers', [])
     Surveys.unsetTag( $scope.survey, tag);
   }
 
-  $scope.createTag = function(tag) {
-    Surveys.createTag( $scope.survey );
+
+
+  $scope.createTag = function(prefix, tag){
+    tag = tag.toLowerCase();
+    var new_tag = (prefix)?prefix + ":" + tag:tag;
+    Surveys.createTag( $scope.survey, new_tag);
+    Surveys.setTag( $scope.survey, new_tag);
   }
 
   $scope.filterTags = function (survey_tag) {

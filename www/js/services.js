@@ -44,7 +44,7 @@ angular.module('starter.services', [])
     id: 1,
     name: "Sliverlake Japanese Cultural Center",
     contract_number: "0thx1138",
-    surveys: [1,2]
+    surveys: [1]
   }, {
     id: 2,
     name: "Utah Place Bike Workshop",
@@ -79,12 +79,6 @@ angular.module('starter.services', [])
 
   var surveys = [{
     id: 1,
-    creation_date: new Date(2009,10,10),
-    pictures : [ 
-            ],
-    tags: []
-  }, {
-    id: 2,
     creation_date: new Date(20010,10,10),
     pictures : [ 
             { //id: -1,
@@ -94,7 +88,7 @@ angular.module('starter.services', [])
             }
             ],
     tags: ["area:living room","cute","equipment:boiler"],
-    active_tags: ["cute","cute1","cute2","cute3","cute4","cute5","cute6","cute7","cute8","cute9","cute10","cute11","cute12","cute13","cute14"]
+    active_tags: ["cute"]
 
   }];
 
@@ -119,7 +113,8 @@ angular.module('starter.services', [])
           id: new_id,
           creation_date: new Date(),
           pictures: [],
-          tags: []
+          tags: [],
+          active_tags: []
       }
       surveys.push( new_survey );
       Projects.get(projectId).surveys.push(new_id);
@@ -129,9 +124,12 @@ angular.module('starter.services', [])
       var picture = { 
         //id: pic_id,
         uri: picURI,
-        tags: ["default","tag"],
+        tags: [],
         description: ""
       }
+      angular.forEach(survey.active_tags, function(tag){
+        picture.tags.push(tag);
+      })
       //pic_id = pic_id + 1;
       survey.pictures.push( picture );
     },
@@ -158,6 +156,11 @@ angular.module('starter.services', [])
       if( survey.active_tags.indexOf(tag) === -1 ){
         survey.active_tags.push(tag);
       }
+    },
+    createTag: function( survey, tag ){
+      if( survey.tags.indexOf(tag) === -1 ){
+        survey.tags.push(tag);
+      }
     }
-  };
+  }
 });
