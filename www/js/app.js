@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.services2'])
+angular.module('photoTagger', ['ionic', 'photoTagger.controllers', 'photoTagger.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -44,22 +44,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     url: '/survey',
     views: {
       'tab-survey': {
-        templateUrl: 'templates/tab-project-list.html',
-        controller: 'ProjectListCtrl'
+        templateUrl: 'templates/survey-list.html',
+        controller: 'SurveyListCtrl'
       }
     }
   })
-  .state('tab.project-detail', {
+  /*.state('tab.project-detail', {
       url: '/survey/:projectId',
       views: {
         'tab-survey': {
           templateUrl: 'templates/project-detail.html',
-          controller: 'ProjectDetailCtrl'
+          controller: 'SurveyListCtrl'
         }
       }
-    })
+    })*/
   .state('tab.survey-detail',{
-    url: '/survey/:projectId/:surveyId',
+    url: '/survey/:surveyId',
       views: {
         'tab-survey': {
           templateUrl: 'templates/survey-detail.html',
@@ -68,7 +68,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
   })
   .state('tab.picture-detail',{
-    url: '/survey/:projectId/:surveyId/:pictureId',
+    url: '/survey/:surveyId/:pictureId',
       views: {
         'tab-survey': {
           templateUrl: 'templates/picture-detail.html',
@@ -76,25 +76,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
   })
-
-  /*.state('tab.chats', {
-      url: '/chats',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
-      }
-    })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
-      }
-    })*/
 
   .state('tab.settings', {
     url: '/settings',
@@ -107,6 +88,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/survey/1');
+  $urlRouterProvider.otherwise('/tab/survey');
 
 });

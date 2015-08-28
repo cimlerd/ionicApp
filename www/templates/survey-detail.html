@@ -22,7 +22,7 @@
       </div>
     </div>
     <ion-list>
-      <ion-item ng-repeat="picture in survey.pictures()" class="item-remove-animate item-thumbnail-left size-96" type="item-text-wrap" href="#/tab/survey/{{projectId}}/{{surveyId}}/{{$index}}">
+      <ion-item ng-repeat="picture in survey.pictures()" class="item-remove-animate item-thumbnail-left size-96" type="item-text-wrap" href="#/tab/survey/{{surveyId}}/{{$index}}">
       <img ng-src="{{picture.uri}}" >
       <p>{{picture.description()}}</p>
       <p>Tags: <span ng-repeat="tag in picture.tags()">{{tag}}{{$last ? '' : ', '}}</span></p>

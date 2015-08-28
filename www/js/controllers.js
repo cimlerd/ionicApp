@@ -1,23 +1,17 @@
-angular.module('starter.controllers', [])
+angular.module('photoTagger.controllers', [])
 
-.controller('ProjectListCtrl', function($scope, Projects) {
-  $scope.projects = Projects.all();
-})
 
-.controller('ProjectDetailCtrl', function($scope, $stateParams, Projects,Surveyz,$log) {
-  $scope.surveys = Surveyz.all();
+.controller('SurveyListCtrl', function($scope, $stateParams, Surveys) {
+  $scope.surveys = Surveys.all();
   $scope.add = function(){
-    Surveyz.add();
-    $log.log( Surveyz.all() );
+    Surveys.add();
   }
 })
 
-.controller('SurveyCtrl', function($scope, $stateParams, $ionicModal, Surveyz, Camera){
+.controller('SurveyCtrl', function($scope, $stateParams, $ionicModal, Surveys, Camera){
 
   $scope.surveyId = $stateParams.surveyId;
-  $scope.survey = Surveyz.get($scope.surveyId);
-  //$scope.tag_types = ["facility","equipment","area"];
-
+  $scope.survey = Surveys.get($scope.surveyId);
 
   $scope.getPicture = function() {
     Camera.getPicture().then(function(imageURI) {
@@ -34,20 +28,8 @@ angular.module('starter.controllers', [])
     });
   };
 
-  //Next line is modal-talk. 
-  /*
-  $scope.new_tag = { 
-    prefix:"",
-    text: ""
-  };
-  */
 
-
-
-
-  //$scope.modal_scope =  $scope.$new(true);
-  //$scope.modal_scope.survey = $scope.survey;
-  //$scope.modal_scope.target = $scope.survey;
+  //Handle modals
   $ionicModal.fromTemplateUrl('templates/tags-modal.html', {
     scope: $scope
   }).then(function(modal) {
@@ -58,8 +40,6 @@ angular.module('starter.controllers', [])
     $scope.modal.remove();
   }); 
 
-  //$scope.modal_state = 0;
-
   $scope.manageTags = function(){
     $scope.modal.show()
   }
@@ -67,68 +47,22 @@ angular.module('starter.controllers', [])
   $scope.closeTagModal = function (){
     $scope.modal.hide();
   }
-
-  /*
-  $scope.showAddTag = function() {
-    $scope.modal_state = 1;
-  }
-
-  $scope.showNewTag = function(){
-    $scope.new_tag.text = "";
-    $scope.new_tag.prefix = "";
-    $scope.modal_state =2;
-  }
-
-  $scope.closeTagModal = function (){
-    $scope.modal.hide();
-  }
-
-  $scope.setTag = function(tag){
-    Surveys.setTag( $scope.survey,  tag);
-  }
-
-  $scope.unsetTag = function(tag){
-    Surveys.unsetTag( $scope.survey, tag);
-  }
-
-
-
-  $scope.createTag = function(prefix, tag){
-    tag = tag.toLowerCase();
-    var new_tag = (prefix)?prefix + ":" + tag:tag;
-    Surveys.createTag( $scope.survey, new_tag);
-    Surveys.setTag( $scope.survey, new_tag);
-  }
-
-  $scope.filterTags = function (survey_tag) {
-    //So, is item 
-    if ( $scope.survey.active_tags.indexOf(survey_tag)==-1 ){
-      return survey_tag;
-    }
-  };*/
-
 })
 
-.controller('PictureCtrl', function($scope, $stateParams, $ionicModal, Surveyz) {
+.controller('PictureCtrl', function($scope, $stateParams, $ionicModal, Surveys) {
   $scope.surveyId = $stateParams.surveyId;
-  $scope.survey = Surveyz.get($stateParams.surveyId);
+  $scope.survey = Surveys.get($stateParams.surveyId);
   $scope.picture = $scope.survey.pictures()[$stateParams.pictureId];
 
-
-  //Modal shit
-  //$scope.tag_types = ["facility","equipment","area"];
-
-  //$scope.modal_state = 0;
-  //$scope.new_tag = { 
-  //  prefix:"",
-  //  text: ""
-  //};
-
-
+  //Handle modals
   $ionicModal.fromTemplateUrl('templates/tags-modal.html',  {
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal
+  });
+
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
   });
 
   $scope.openTagModal = function() {
@@ -136,54 +70,12 @@ angular.module('starter.controllers', [])
   }
 
   $scope.closeTagModal = function() {
-    //$scope.showPictureTagsModal();
     $scope.modal.hide();
   };
 
-  /*
-  $scope.$on('$destroy', function() {
-    $scope.modal.remove();
-  });  
 
-  $scope.removeTag = function(tag){
-    Surveys.unTagPicture( $scope.survey, $stateParams.pictureId, tag);
-  }
-
-  $scope.addTag = function(tag){
-    Surveys.tagPicture( $scope.survey, $stateParams.pictureId, tag);
-  }
-
-  $scope.createTag = function(prefix, tag){
-    tag = tag.toLowerCase();
-    if( prefix == undefined){
-      Surveys.tagPicture( $scope.survey, $stateParams.pictureId, tag );
-    } else {
-      Surveys.tagPicture( $scope.survey, $stateParams.pictureId, prefix + ":" + tag );
-    }
-  }
-
-  $scope.showPictureTagsModal = function(){
-    $scope.modal_state = 0;
-  }
-
-  $scope.showSurveyTagsModal = function(){
-    $scope.modal_state = 1;
-  }
-
-  $scope.showNewTagModal = function(){
-    $scope.new_tag.text = "";
-    $scope.new_tag.prefix = "";
-    $scope.modal_state = 2;
-  }
-
-  $scope.filterTags = function (survey_tag) {
-    //So, is item 
-    if ( $scope.picture.tags.indexOf(survey_tag)==-1 ){
-      return survey_tag;
-    }
-  };*/
 })
-.controller('TagModalCtrl',function($scope,$stateParams,$log,Surveyz){
+.controller('TagModalCtrl',function($scope,$stateParams,$log,Surveys){
   
   $scope.tag_types = ["facility","equipment","area"];
   var surveyId =  $stateParams.surveyId;
@@ -191,7 +83,7 @@ angular.module('starter.controllers', [])
   $log.log( "Survey Id: " + surveyId );
   $log.log( "Picture Id: " +  pictureId );
 
-  $scope.survey = Surveyz.get(surveyId );
+  $scope.survey = Surveys.get(surveyId );
   if( pictureId ){
     $scope.target = $scope.survey.pictures()[pictureId];
   } else {

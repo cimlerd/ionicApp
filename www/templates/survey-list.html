@@ -1,0 +1,26 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view view-title="Survey List">
+  <ion-content class="">
+    <ion-list>
+      <ion-item ng-repeat="survey in surveys" class="item-remove-animate item-avatar item-icon-right size-96" type="item-text-wrap" href="#/tab/survey/{{$index}}">
+        <h2>{{survey.creation_date() |  date:'MM/dd/yyyy'}}</h2>
+        <p>Pictures:  {{survey.pictures().length}}</p>
+        <p>Tags:  {{survey.tags().length}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+
+  <ion-footer-bar>
+    <button ng-click="add()"
+      class="button text-center col-80 col-offset-10 button-balanced button-large icon-center ion-plus-round">
+        New Survey
+    </button>
+  </ion-footer-bar>
+
+</ion-view>
