@@ -7,10 +7,10 @@
 <ion-view view-title="Survey List">
   <ion-content class="">
     <ion-list>
-      <ion-item ng-repeat="survey in surveys" class="item-remove-animate item-avatar item-icon-right size-96" type="item-text-wrap" href="#/tab/survey/{{project.id}}/{{survey.id}}">
-        <h2>{{survey.creation_date |  date:'MM/dd/yyyy'}}</h2>
-        <p>Pictures:  {{survey.pictures.length}}</p>
-        <p>Tags:  {{survey.tags.length}}</p>
+      <ion-item ng-repeat="survey in surveys" class="item-remove-animate item-avatar item-icon-right size-96" type="item-text-wrap" href="#/tab/survey/{{project.id}}/{{$index}}">
+        <h2>{{survey.creation_date() |  date:'MM/dd/yyyy'}}</h2>
+        <p>Pictures:  {{survey.pictures().length}}</p>
+        <p>Tags:  {{survey.tags().length}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>

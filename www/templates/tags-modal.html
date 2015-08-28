@@ -1,0 +1,64 @@
+<div class="modal" ng-controller="TagModalCtrl">
+    <ion-header-bar>
+      <h1 class="title" ng-hide="showCreateTag">Tags</h1>
+      <h1 class="title" ng-show="showCreateTag">Create Tag</h1>
+    </ion-header-bar>
+
+    <ion-content ng-hide="showCreateTag">
+      <ion-list>
+        <ion-checkbox ng-repeat="tag in survey.allTags()" 
+                      ng-checked="isSelected(tag)"
+                      ng-click="toggleTag(tag)"
+                      >
+                      {{tag}}
+        </ion-checkbox>
+        <!--<ion-item ng-repeat="tag in survey.allTags()">
+          {{tag}}
+          <ion-option-button class="button-assertive ion-close"
+                   ng-click="removeTag(tag)">
+          </ion-option-button>
+        </ion-item>-->
+      </ion-list>
+    </ion-content>
+
+    <ion-content ng-show="showCreateTag">
+      <label class="card item-input">
+        <span class="input-label">Tag Name</span>
+        <input type="text" ng-model="new_tag.text" placeholder="Type a tag"></input>
+      </label>
+      <div class="card">
+        <div class="item item-divider">
+          Tag Type
+        </div>
+        <ion-radio ng-repeat="item in tag_types"
+                 ng-value="item"
+                 type="card"
+                 ng-model="new_tag.prefix">
+          {{ item }}
+        </ion-radio>
+      </div>
+    </ion-content>
+
+
+    <ion-footer-bar class="tall-footer"  ng-hide="showCreateTag">
+      <div class="buttons col-50">
+        <button class="button-block button button-balanced " ng-click="showTagCreate()">Add
+        </button>
+      </div>
+      <div class="buttons col-50">
+        <button class="button-block button button-positive " ng-click="close()">Done
+        </button>
+      </div>
+    </ion-footer-bar>
+
+    <ion-footer-bar class="tall-footer" ng-show="showCreateTag">
+      <div class="buttons col-50">
+        <button ng-disabled="{{new_tag.text}}" class="button-block button button-balanced " ng-click="createTag(new_tag.prefix, new_tag.text); close();">Create 
+        </button>
+      </div>
+      <div class="buttons col-50">
+        <button class="button-block button button-positive " ng-click="showTagList()">Back
+        </button>
+      </div>
+    </ion-footer-bar>
+  </div>
