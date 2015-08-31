@@ -10,7 +10,7 @@
       <ion-item ng-repeat="survey in surveys" class="item-remove-animate item-avatar item-icon-right size-96" type="item-text-wrap" href="#/tab/survey/{{$index}}">
         <h2>{{survey.creation_date() |  date:'MM/dd/yyyy'}}</h2>
         <p>Pictures:  {{survey.pictures().length}}</p>
-        <p>Tags:  {{survey.tags().length}}</p>
+        <p>Tags:  {{survey.allTags().length}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>

@@ -28,25 +28,21 @@ angular.module('photoTagger.controllers', [])
     });
   };
 
-
-  //Handle modals
-  $ionicModal.fromTemplateUrl('templates/tags-modal.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal
-  });
-
-  $scope.$on('$destroy', function() {
-    $scope.modal.remove();
-  }); 
-
   $scope.manageTags = function(){
-    $scope.modal.show()
+    $ionicModal.fromTemplateUrl('templates/tags-modal.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.modal = modal;
+      $scope.modal.show();
+    });
   }
 
   $scope.closeTagModal = function (){
-    $scope.modal.hide();
+    if( $scope.modal )
+      $scope.modal.remove();
   }
+
+
 })
 
 .controller('PictureCtrl', function($scope, $stateParams, $ionicModal, Surveys) {
@@ -54,24 +50,19 @@ angular.module('photoTagger.controllers', [])
   $scope.survey = Surveys.get($stateParams.surveyId);
   $scope.picture = $scope.survey.pictures()[$stateParams.pictureId];
 
-  //Handle modals
-  $ionicModal.fromTemplateUrl('templates/tags-modal.html',  {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal
-  });
-
-  $scope.$on('$destroy', function() {
-    $scope.modal.remove();
-  });
-
-  $scope.openTagModal = function() {
-    $scope.modal.show()
+  $scope.manageTags = function(){
+    $ionicModal.fromTemplateUrl('templates/tags-modal.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.modal = modal;
+      $scope.modal.show();
+    });
   }
 
-  $scope.closeTagModal = function() {
-    $scope.modal.hide();
-  };
+  $scope.closeTagModal = function (){
+    if( $scope.modal )
+      $scope.modal.remove();
+  }
 
 
 })
@@ -152,8 +143,12 @@ angular.module('photoTagger.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('SettingsCtrl', function($scope) {
+.controller('SettingsCtrl', function($scope, Surveys) {
   $scope.settings = {
     enableSync: true
   };
+
+  $scope.resetLocalStorage = function(){
+    Surveys.resetLocalStorage();
+  }
 });
