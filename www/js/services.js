@@ -86,7 +86,7 @@ angular.module('photoTagger.services', [])
       $localstorage.setObject('Surveys',_surveys);
     },
     resetLocalStorage: function() {
-      _surveys = [];
+      _surveys.length=0; //Doing it this way clears references to these objects.  Rest of the UI responds sanely.
       this.saveState();
     }
   };
